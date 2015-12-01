@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,7 +19,41 @@ public class HoneyDataModel extends AbstractTableModel {
 
     public HoneyDataModel(ResultSet rs) {
         this.resultSet = rs;
+        System.out.println("Now we should output the rs");
+        output(rs);
         setup();
+    }
+
+    private void output(ResultSet rs) {
+        ArrayList<Integer> weightContent = new ArrayList<Integer>();
+        ArrayList<String> dateContent = new ArrayList<>();
+
+        int rsCount = 0;
+        try {
+            while (this.resultSet.next()) {
+                rsCount++;  // to make sure there is a result
+                weightContent.add(rs.getInt(HoneyDatabase.WEIGHT_COLUMN));
+                dateContent.add(rs.getString(HoneyDatabase.DATE_COLUMN));
+            }
+            if (rsCount == 0) {
+                System.out.println("Nothing matches that solver entry.");
+            } else { // then output the results once you know there is a result set
+                int loopCount = 0;  // have to count again
+                System.out.println("Choose one of the weights:");
+                for (int resName : weightContent) {
+                    loopCount++;
+                    System.out.println(loopCount + ". " + resName);
+                }
+                System.out.println("Choose one of the dates:");
+                for (String resName : dateContent) {
+                    loopCount++;
+                    System.out.println(loopCount + ". " + resName);
+                }
+            }
+        }
+        catch (Exception e){
+            System.out.println("The output exception is " + e);
+        }
     }
 
     private void setup(){
@@ -161,8 +196,6 @@ public class HoneyDataModel extends AbstractTableModel {
     public boolean insertRow() {
 
         try {
-            System.out.println("Please enter the hive location:");
-            String location = s.nextLine();
             System.out.println("Please enter year that hive was harvested:");
             String dateStr = s.next();
             System.out.println(dateStr);

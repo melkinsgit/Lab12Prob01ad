@@ -30,6 +30,7 @@ public class HiveDataModel extends AbstractTableModel {
 
         try{
             colCount = resultSet.getMetaData().getColumnCount();
+            System.out.println(colCount);
 
         } catch (SQLException se) {
             System.out.println("Error counting columns" + se);
@@ -118,7 +119,7 @@ public class HiveDataModel extends AbstractTableModel {
         try {
             resultSet.absolute(row + 1);  // rows start at 1, JTable rows start at 0
             // update the data
-            resultSet.updateString(HoneyDatabase.DATE_COLUMN, newHarvestDate);
+            resultSet.updateString(HoneyDatabase.LOCATION_COLUMN, newHarvestDate);
             // update the row
             resultSet.updateRow();
             // method that updates the GUI - updates the JTable

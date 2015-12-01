@@ -46,13 +46,13 @@ public class HoneyDatabase {
             System.exit(-1);
         }
 
-        if (!loadAllHives()) {
-            System.exit(-1);
-        }
-
-        if (!loadAllHarvests()) {
-            System.exit(-1);
-        }
+//        if (!loadAllHives()) {
+//            System.exit(-1);
+//        }
+//
+//        if (!loadAllHarvests()) {
+//            System.exit(-1);
+//        }
 //        //If no errors, then start GUI
 //        HoneyOptionsGUI tableGUI = new HoneyOptionsGUI(honeyDataModel);
 
@@ -64,67 +64,67 @@ public class HoneyDatabase {
     }
 
     //Create or recreate a ResultSet containing the whole database, and give it to movieDataModel
-    public static boolean loadAllHives(){
-
-        try{
-
-            if (rs!=null) {
-                rs.close();
-            }
-
-            String getAllData = "SELECT * FROM " + HIVES_TABLE_NAME;
-            rs = statement.executeQuery(getAllData); // TODO do I give the result sets different names so they both can exist?
-
-            if (honeyDataModel == null) {
-                //If no current honeyDataModel, then make one
-//                honeyDataModel = new HoneyDataModel(rs);  // TODO do I need more than one honeyDataModel, or more than one model and one of each for each table?
-            } else {
-                //Or, if one already exists, update its ResultSet
-                honeyDataModel.updateResultSet(rs);
-            }
-
-            return true;
-
-        } catch (Exception e) {
-            System.out.println("Error loading or reloading hives");
-            System.out.println(e);
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-
-    public static boolean loadAllHarvests(){
-
-        // TODO I don't want two HoneyDataModels
-
-        try{
-
-            if (rs!=null) {
-                rs.close();
-            }
-
-            String getAllData = "SELECT * FROM " + HARVESTS_TABLE_NAME;
-            rs = statement.executeQuery(getAllData);
-
-            if (honeyDataModel == null) {
-                //If no current honeyDataModel, then make one
-                honeyDataModel = new HoneyDataModel(rs);
-            } else {
-                //Or, if one already exists, update its ResultSet
-                honeyDataModel.updateResultSet(rs);
-            }
-
-            return true;
-
-        } catch (Exception e) {
-            System.out.println("Error loading or reloading harvests");
-            System.out.println(e);
-            e.printStackTrace();
-            return false;
-        }
-
-    }
+//    public static boolean loadAllHives(){
+//
+//        try{
+//
+//            if (rs!=null) {
+//                rs.close();
+//            }
+//
+//            String getAllData = "SELECT * FROM " + HIVES_TABLE_NAME;
+//            rs = statement.executeQuery(getAllData); // TODO do I give the result sets different names so they both can exist?
+//
+//            if (honeyDataModel == null) {
+//                //If no current honeyDataModel, then make one
+////                honeyDataModel = new HoneyDataModel(rs);  // TODO do I need more than one honeyDataModel, or more than one model and one of each for each table?
+//            } else {
+//                //Or, if one already exists, update its ResultSet
+//                honeyDataModel.updateResultSet(rs);
+//            }
+//
+//            return true;
+//
+//        } catch (Exception e) {
+//            System.out.println("Error loading or reloading hives");
+//            System.out.println(e);
+//            e.printStackTrace();
+//            return false;
+//        }
+//
+//    }
+//
+//    public static boolean loadAllHarvests(){
+//
+//        // TODO I don't want two HoneyDataModels
+//
+//        try{
+//
+//            if (rs!=null) {
+//                rs.close();
+//            }
+//
+//            String getAllData = "SELECT * FROM " + HARVESTS_TABLE_NAME;
+//            rs = statement.executeQuery(getAllData);
+//
+//            if (honeyDataModel == null) {
+//                //If no current honeyDataModel, then make one
+//                honeyDataModel = new HoneyDataModel(rs);
+//            } else {
+//                //Or, if one already exists, update its ResultSet
+//                honeyDataModel.updateResultSet(rs);
+//            }
+//
+//            return true;
+//
+//        } catch (Exception e) {
+//            System.out.println("Error loading or reloading harvests");
+//            System.out.println(e);
+//            e.printStackTrace();
+//            return false;
+//        }
+//
+//    }
 
     public static boolean setup(){
         try {
@@ -261,35 +261,35 @@ public class HoneyDatabase {
 
     }
 
-    //Close the ResultSet, statement and connection, in that order.
-    public static void shutdown(){
-        try {
-            if (rs != null) {
-                rs.close();
-                System.out.println("Result set closed");
-            }
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-
-        try {
-            if (statement != null) {
-                statement.close();
-                System.out.println("Statement closed");
-            }
-        } catch (SQLException se){
-            //Closing the connection could throw an exception too
-            se.printStackTrace();
-        }
-
-        try {
-            if (conn != null) {
-                conn.close();
-                System.out.println("Database connection closed");
-            }
-        }
-        catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
+//    //Close the ResultSet, statement and connection, in that order.
+//    public static void shutdown(){
+//        try {
+//            if (rs != null) {
+//                rs.close();
+//                System.out.println("Result set closed");
+//            }
+//        } catch (SQLException se) {
+//            se.printStackTrace();
+//        }
+//
+//        try {
+//            if (statement != null) {
+//                statement.close();
+//                System.out.println("Statement closed");
+//            }
+//        } catch (SQLException se){
+//            //Closing the connection could throw an exception too
+//            se.printStackTrace();
+//        }
+//
+//        try {
+//            if (conn != null) {
+//                conn.close();
+//                System.out.println("Database connection closed");
+//            }
+//        }
+//        catch (SQLException se) {
+//            se.printStackTrace();
+//        }
+//    }
 }
