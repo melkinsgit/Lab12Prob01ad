@@ -1,22 +1,25 @@
 package com.margaret;
 
-import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
- * Created by Margaret on 11/28/2015.
+ * Created by sn0173nd on 12/1/2015.
  */
-public class HoneyDataModel extends AbstractTableModel {
+public class HiveDataModel extends AbstractTableModel {
+
+    /**
+     * Created by Margaret on 11/28/2015.
+     */
 
     private int rowCount = 0;
     private int colCount = 0;
     ResultSet resultSet;
     Scanner s = new Scanner(System.in);
 
-    public HoneyDataModel(ResultSet rs) {
+    public HiveDataModel(ResultSet rs) {
         this.resultSet = rs;
         setup();
     }
@@ -163,21 +166,20 @@ public class HoneyDataModel extends AbstractTableModel {
         try {
             System.out.println("Please enter the hive location:");
             String location = s.nextLine();
-            System.out.println("Please enter year that hive was harvested:");
-            String dateStr = s.next();
-            System.out.println(dateStr);
-            int date = Integer.parseInt(dateStr);
-            System.out.println(date);
-            System.out.println("Please enter number of pounds harvested:");
-            String weightStr = s.next();
-            int weight = Integer.parseInt(weightStr);
-            System.out.println(weightStr);
-            System.out.println(weight);
+//            System.out.println("Please enter year that hive was harvested:");
+//            String dateStr = s.next();
+//            System.out.println(dateStr);
+//            int date = Integer.parseInt(dateStr);
+//            System.out.println(date);
+//            System.out.println("Please enter number of pounds harvested:");
+//            String weightStr = s.next();
+//            int weight = Integer.parseInt(weightStr);
+//            System.out.println(weightStr);
+//            System.out.println(weight);
 
             //Move to insert row, insert the appropriate data in each column, insert the row, move cursor back to where it was before we started
             resultSet.moveToInsertRow();
-            resultSet.updateInt(HoneyDatabase.DATE_COLUMN, date);
-            resultSet.updateInt(HoneyDatabase.WEIGHT_COLUMN, weight);
+            resultSet.updateString(HoneyDatabase.LOCATION_COLUMN, location);
             resultSet.insertRow();  // adds a PK value
             resultSet.moveToCurrentRow();
             fireTableDataChanged();
