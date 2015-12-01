@@ -2,7 +2,11 @@ package com.margaret;
 
 import java.sql.*;
 
-
+//first
+//ALTER TABLE harvests
+//ADD COLUMN harvestHiveID INT;
+//then
+//ALTER TABLE harvests MODIFY COLUMN hiveID INT NOT NULL, ADD CONSTRAINT hivesFKID FOREIGN KEY (hiveID) REFERENCES hives(hiveID);
 public class HoneyDatabase {
 
 
@@ -51,6 +55,11 @@ public class HoneyDatabase {
         }
 //        //If no errors, then start GUI
 //        HoneyOptionsGUI tableGUI = new HoneyOptionsGUI(honeyDataModel);
+
+        // if no errors, then create a join for the first task of inserting a row
+        System.out.println("Now you can insert a row.");
+        RowInsert rowInsert = new RowInsert();
+
 
     }
 
@@ -171,11 +180,18 @@ public class HoneyDatabase {
 
             if (!harvestTableExists()) {
                 //Create a table in the database with 3 columns: Movie title, year and rating
-                String createTableSQL2 = "CREATE TABLE " + HARVESTS_TABLE_NAME + " (" + HARVESTS_PK_COL + " int NOT NULL AUTO_INCREMENT PRIMARY KEY, " + DATE_COLUMN + " varchar(50), " + WEIGHT_COLUMN + " int)";
+                String createTableSQL2 = "CREATE TABLE " + HARVESTS_TABLE_NAME + " (" + HARVESTS_PK_COL + " int NOT NULL AUTO_INCREMENT PRIMARY KEY, " + DATE_COLUMN + " varchar(50), \n" + WEIGHT_COLUMN + " int)";
                 System.out.println(createTableSQL2);
                 statement.executeUpdate(createTableSQL2);
 
-                System.out.println("Created movie_reviews table");
+                System.out.println("Created harvests table");
+
+                String addColumnSQL = "ALTER TABLE " + HARVESTS_TABLE_NAME + " ADD COLUMN " + HIVES_PK_COL + " INT;";
+                System.out.println(addColumnSQL);
+                statement.executeUpdate(addColumnSQL);
+
+                System.out.println("Added hiveID column to harvests");
+
 
                 // Add some test data - change to some movies you like, if desired
                 //Example SQL: INSERT INTO movie_reviews ( title, year_released, rating ) VALUES ( 'Back to the future', 1985, 5)
@@ -192,6 +208,30 @@ public class HoneyDatabase {
                 addDataSQL2 = "INSERT INTO " + HARVESTS_TABLE_NAME + "(" + DATE_COLUMN + ", " + WEIGHT_COLUMN + ")" + " VALUES ('date3', 300)";
                 System.out.println(addDataSQL2);
                 statement.executeUpdate(addDataSQL2);
+
+                String addFKData = "UPDATE " + HARVESTS_TABLE_NAME + " SET " + HIVES_PK_COL + " = 2 WHERE " + HARVESTS_PK_COL + " = 1;";
+                System.out.println(addFKData);
+                System.out.println("UPDATE harvests SET hiveID = 2 WHERE harvestID = 3;");
+                statement.executeUpdate(addFKData);
+                addFKData = "UPDATE " + HARVESTS_TABLE_NAME + " SET " + HIVES_PK_COL + " = 2 WHERE " + HARVESTS_PK_COL + " = 2;";
+                statement.executeUpdate(addFKData);
+                addFKData = "UPDATE " + HARVESTS_TABLE_NAME + " SET " + HIVES_PK_COL + " = 1 WHERE " + HARVESTS_PK_COL + " = 3;";
+                statement.executeUpdate(addFKData);
+
+                System.out.println("Added foreign key data to harvests");
+
+                String constraintName = "hiveFKConst";
+                String fkConstraint = "ALTER TABLE " + HARVESTS_TABLE_NAME + " MODIFY COLUMN " + HIVES_PK_COL + " INT NOT NULL, ADD CONSTRAINT " + constraintName + " FOREIGN KEY(" + HIVES_PK_COL + ") REFERENCES " + HIVES_TABLE_NAME + "(" + HIVES_PK_COL + ");";
+                System.out.println(fkConstraint);
+                statement.executeUpdate(fkConstraint);
+
+//                ALTER TABLE harvests MODIFY COLUMN hiveID INT NOT NULL,
+//                        ADD CONSTRAINT hiveFKConst
+//                FOREIGN KEY(hiveID)
+//                        REFERENCES hives(hiveID);
+
+                System.out.println("Foreign key constraint added");
+
             }
             return true;
 
@@ -217,10 +257,7 @@ public class HoneyDatabase {
 
         String checkTablePresentQuery = "SHOW TABLES LIKE '" + HARVESTS_TABLE_NAME + "'";   //Can query the database schema
         ResultSet tablesRS = statement.executeQuery(checkTablePresentQuery);
-        if (tablesRS.next()) {    //If ResultSet has a next row, it has at least one row... that must be our table
-            return true;
-        }
-        return false;
+        return tablesRS.next();
 
     }
 
