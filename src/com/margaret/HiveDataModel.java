@@ -16,7 +16,7 @@ public class HiveDataModel extends AbstractTableModel {
 
     private int rowCount = 0;
     private int colCount = 0;
-    ResultSet resultSet;
+    private ResultSet resultSet;
     Scanner s = new Scanner(System.in);
 
     public HiveDataModel(ResultSet rs) {

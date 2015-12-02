@@ -14,7 +14,7 @@ public class HoneyDataModel extends AbstractTableModel {
 
     private int rowCount = 0;
     private int colCount = 0;
-    ResultSet resultSet;
+    private ResultSet resultSet;
     Scanner s = new Scanner(System.in);
 
     public HoneyDataModel(ResultSet rs) {
@@ -50,6 +50,7 @@ public class HoneyDataModel extends AbstractTableModel {
                     System.out.println(loopCount + ". " + resName);
                 }
             }
+            resultSet.beforeFirst();
         }
         catch (Exception e){
             System.out.println("The output exception is " + e);
@@ -125,11 +126,11 @@ public class HoneyDataModel extends AbstractTableModel {
 
         //Make sure newValue is an integer AND that it is in the range of valid ratings
 
-        int newRating;
-        String newHarvestDate = "";  // TODO why is this called out as potentially not initialized and newRaing isn't?
+        //int newRating;
+        String newHarvestDate = "";  // TODO why is this called out as potentially not initialized and newRating isn't?
         String newHarvestWeight;
 
-        // TODO why do you need to validate if the value is coming from a dropdown?
+        //
 //        try {
 //            newRating = Integer.parseInt(newValue.toString());
 //

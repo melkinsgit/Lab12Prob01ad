@@ -2,11 +2,6 @@ package com.margaret;
 
 import java.sql.*;
 
-//first
-//ALTER TABLE harvests
-//ADD COLUMN harvestHiveID INT;
-//then
-//ALTER TABLE harvests MODIFY COLUMN hiveID INT NOT NULL, ADD CONSTRAINT hivesFKID FOREIGN KEY (hiveID) REFERENCES hives(hiveID);
 public class HoneyDatabase {
 
 
@@ -15,7 +10,7 @@ public class HoneyDatabase {
     static final String DB_NAME = "honey";
     // database created using command line for my sql
     static final String USER = "root";
-    static final String PASS = "itecitec";
+    static final String PASS = "cello";
 
     static Statement statement = null;  // The object used for executing a static SQL statement and returning the results it produces.
     static Connection conn = null;
@@ -211,7 +206,6 @@ public class HoneyDatabase {
 
                 String addFKData = "UPDATE " + HARVESTS_TABLE_NAME + " SET " + HIVES_PK_COL + " = 2 WHERE " + HARVESTS_PK_COL + " = 1;";
                 System.out.println(addFKData);
-                System.out.println("UPDATE harvests SET hiveID = 2 WHERE harvestID = 3;");
                 statement.executeUpdate(addFKData);
                 addFKData = "UPDATE " + HARVESTS_TABLE_NAME + " SET " + HIVES_PK_COL + " = 2 WHERE " + HARVESTS_PK_COL + " = 2;";
                 statement.executeUpdate(addFKData);
